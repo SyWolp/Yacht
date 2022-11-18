@@ -1,7 +1,7 @@
 import { Box, Flex, Image, Text } from "@chakra-ui/react"
 import Button from "../Button"
 
-const MainGameBoard = ({ playBtn, showDice, keepBtn, keepDice, removeKeep, player, endTurn, countPlay, selectMyScore, resultDice }: any) => {
+const MainGameBoard = ({ playBtn, showDice, keepBtn, keepDice, removeKeep, player, endTurn, countPlay, selectMyScore, resultDice, nowPlayer }: any) => {
   return (
     <Box width={'xl'} bg={'green.500'}>
       <Text
@@ -14,7 +14,7 @@ const MainGameBoard = ({ playBtn, showDice, keepBtn, keepDice, removeKeep, playe
         fontSize={'5xl'}
         my={'0'}
       >
-        {player ? '1' : '2'} Player Turn
+        {nowPlayer ? '1' : '2'} Player Turn
       </Text>
       <Text
         margin={'auto'}
@@ -39,20 +39,26 @@ const MainGameBoard = ({ playBtn, showDice, keepBtn, keepDice, removeKeep, playe
               text="RUN"
               onClick={playBtn}
             />
-            <Button
-              bg={'red.400'}
-              width={'30%'}
-              h={'16'}
-              borderRadius={'xl'}
-              text="END"
-              onClick={endTurn}
-            />
+            {
+              countPlay > 0 ?
+                <Button
+                  bg={'red.400'}
+                  width={'30%'}
+                  h={'16'}
+                  borderRadius={'xl'}
+                  text="END"
+                  onClick={endTurn}
+                />
+                :
+                null
+            }
+
           </Flex>
           <Box>
             {
               showDice.length && showDice.reduce((a: number, b: number) => a + b) !== 0 ?
                 <Flex my={'20'} w={'100%'} h={'24'} justifyContent={'space-around'}>
-                  {showDice.sort((a:number,b:number) => a-b).map((v: number, i: number) => {
+                  {showDice.sort((a: number, b: number) => a - b).map((v: number, i: number) => {
                     return <Image cursor={'pointer'} key={v + Math.random()} onClick={() => keepBtn(i)} w={'20'} src={`img/${v}.png`} />
                   })}
                 </Flex>
