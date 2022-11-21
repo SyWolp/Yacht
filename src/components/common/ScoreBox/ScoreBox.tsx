@@ -13,13 +13,15 @@ import {
   Image
 } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
-const Score = ({ selectScore, selectMyScore, player, playerTurn, nowPlayer, resultDice, playerScore }: any) => {
+const Score = ({ selectScore, selectMyScore, player, playerTurn, nowPlayer, resultDice, playerScore, reusltSum }: any) => {
 
   const [playNumber, setPlayNumber] = useState(1);
 
   useEffect(() => {
     console.log(playerScore)
-  },[])
+    console.log(playerTurn)
+    console.log(reusltSum)
+  },[playerTurn])
 
   useEffect(() => {
     setPlayNumber(nowPlayer ? 1 : 2);
@@ -39,7 +41,7 @@ const Score = ({ selectScore, selectMyScore, player, playerTurn, nowPlayer, resu
           <Tbody>
             {
               ['one', 'two', 'three', 'four', 'five', 'six'].map((v,i) => {
-                console.log(playerScore[0].top)
+                console.log(playerScore?.top?.[v])
                 return (
                   <Tr key={v + v + v + v + v + v}>
                     <Td>
@@ -48,11 +50,12 @@ const Score = ({ selectScore, selectMyScore, player, playerTurn, nowPlayer, resu
                     <Td>
                       <Input 
                         onClick={() => playerTurn && playNumber === player ? selectScore() : null} 
+                        value={selectMyScore && playNumber === player ?  playerScore?.top?.[v] ? playerScore?.top?.[v] : reusltSum.top?.[v] : playerScore?.top?.[v] !== undefined ? playerScore?.top?.[v] : ''}
                         cursor={selectMyScore && playNumber === player ? 'pointer' : 'default'} 
                         readOnly
-                        value={player === 1 ? playerScore[0].top[v] : playerScore[1].top[v]}
                         border={'none'} 
                         textAlign={'center'}
+                        // visibility={playNumber === player ? 'visible' : 'hidden'}
                       />
                     </Td>
                   </Tr>
@@ -80,10 +83,11 @@ const Score = ({ selectScore, selectMyScore, player, playerTurn, nowPlayer, resu
                       <Input 
                         onClick={() => playerTurn && playNumber === player ? selectScore() : null} 
                         border={'none'} 
+                        value={selectMyScore && playNumber === player ?  playerScore?.bottom?.[v] ? playerScore?.bottom?.[v] : reusltSum.bottom?.[v] : playerScore?.bottom?.[v] !== undefined ? playerScore?.bottom?.[v] : ''}
                         cursor={selectMyScore && playNumber === player ? 'pointer' : 'default'}
                         readOnly 
-                        value={player === 1 ? playerScore[0].bottom[v] : playerScore[1].bottom[v]}
                         textAlign={'center'}
+                        visibility={playNumber === player ? 'visible' : 'hidden'}
                         />
                     </Td>
                   </Tr>

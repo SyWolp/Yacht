@@ -1,12 +1,17 @@
 import type { AppProps } from 'next/app'
 import { ChakraProvider } from '@chakra-ui/react'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function App({ Component, pageProps }: AppProps) {
-  const isServer = typeof window !== 'undefined';
+  const [onWindow, setOnWindow] = useState(false);
+
+  useEffect(() => {
+    setOnWindow(true);
+  },[])
+
   return (
     <ChakraProvider>
-      {isServer && < Component {...pageProps} />}
+      {onWindow && < Component {...pageProps} />}
     </ChakraProvider>
   )
 }
