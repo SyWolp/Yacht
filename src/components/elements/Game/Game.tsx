@@ -57,7 +57,20 @@ const Game = () => {
     setMyDice((v) => [...v, ...keepDice.splice(number,1)])
   }
 
-  const selectScore = () => {
+  const selectScore = (e:any, a:any, b:any, po:string) => {
+    const tnstj = b ? "first" : 'second';
+    setPlayerScore(
+      {
+        ...playerScore,
+        [tnstj] : {
+          ...playerScore?.[tnstj],
+          [po] : {
+            ...playerScore?.[tnstj]?.[po],
+            [a] : e.target.value
+          }
+        }
+      }
+    )
     setPlayTurn(!playerTurn)
     setCountPlay(0);
     setMyDice([0,0,0,0,0])
@@ -79,7 +92,7 @@ const Game = () => {
         six: result.filter(v => v === 6).length * 6 ,
       },
       bottom: {
-        'Four of a Kind': result.filter((v, i, a) => v === a[i+1]).length === 3 ? Array.from({length: 4}, (_,x) => result.filter((v, i, a) => v === a[i+1])[0]).reduce((a,b) => a+b) : 0,
+        'Four of a Kind': result.filter((v, i, a) => v === a[i+1]).length === 3 && result.filter((v, i, a) => v === a[i+1]).every((vv,ii,aa) => vv === aa[0]) ? Array.from({length: 4}, (_,x) => result.filter((v, i, a) => v === a[i+1])[0]).reduce((a,b) => a+b) : result.every(v => v === result[0]) ? result[0] * 4 : 0,
         'Full House': result.filter((v, i, a) => v === a[i+1]).length === 3 ? result.filter((v, i, a) => v === a[i+1]).every((vv,i,a) => vv === a[0]) === false ? result.reduce((a,b) => a + b) : 0 : 0,
         'Little Straight': result.filter((v, i) => result.indexOf(v) === i).sort((a,b)=> b-a).filter((v,i,a) => v - 1 === a[i+1]).filter((vvv,iii,aaa) => vvv - 1 === aaa[iii + 1]).length === 2 ? 15 : result.filter((v, i) => result.indexOf(v) === i).sort((a,b)=> b-a).filter((v,i,a) => v - 1 === a[i+1]).filter((vvv,iii,aaa) => vvv - 1 === aaa[iii + 1]).length === 3 ? 15 : 0,
         'Big Straight': result.sort((a,b) => b-a).filter((v,i,a) => v - 1 === a[i+1]).length === 4 ? 30 : 0,
@@ -98,10 +111,6 @@ const Game = () => {
     setSelectMyScore(true);
   }
 
-  const inputValue = () => {
-    
-  }
-
   useEffect(() => {
     if(countPlay === 3) {
       setResultDice([...myDice, ...keepDice])
@@ -115,7 +124,7 @@ const Game = () => {
   },[selectMyScore, playerTurn, countPlay])
 
 
-  console.log(reusltSum)
+  console.log(reusltSum, playerScore)
   return (
     <Flex h={'9xl'} justifyContent={'space-around'}>
       <Score selectScore={selectScore} selectMyScore={selectMyScore} player={1} playerTurn={playerTurn} nowPlayer={nowPlayer} resultDice={resultDice} playerScore={playerScore.first} reusltSum={reusltSum} />
