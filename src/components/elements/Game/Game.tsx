@@ -36,13 +36,20 @@ const Game = () => {
   const [reusltSum, setResultSum] = useState<ScoreType>({})
   const [selectMyScore, setSelectMyScore] = useState(false);
   const [nowPlayer, setNowPlayer] = useState(true);
+  const [endGame, setEndGame] = useState(0);
   const [playerScore, setPlayerScore] = useState<playScore>(
     {
-      first: {},
-      second: {},
+      first: {
+        top: {},
+        bottom: {},
+      },
+      second: {
+        top: {},
+        bottom: {},
+      },
     }
   );
- 
+
   const playRun = () => {
     const arrLength = Array.from({length:myDice.length}, (_,x) => Math.floor( ( Math.random() * (7 - 1) + 1 ) ));
     setMyDice(arrLength);
@@ -124,12 +131,19 @@ const Game = () => {
   },[selectMyScore, playerTurn, countPlay])
 
 
-  console.log(reusltSum, playerScore)
+  useEffect(() => {
+    if(endGame === 24) {
+      alert('게임 종료')
+    }else {
+      if(playerTurn) setEndGame(endGame + 1);
+    }
+  },[playerTurn])
+
   return (
     <Flex h={'9xl'} justifyContent={'space-around'}>
-      <Score selectScore={selectScore} selectMyScore={selectMyScore} player={1} playerTurn={playerTurn} nowPlayer={nowPlayer} resultDice={resultDice} playerScore={playerScore.first} reusltSum={reusltSum} />
+      <Score selectScore={selectScore} selectMyScore={selectMyScore} player={1} playerTurn={playerTurn} nowPlayer={nowPlayer} resultDice={resultDice} playerScore={playerScore.first} reusltSum={reusltSum}/>
       <GameBoard playBtn={playRun} showDice={myDice} keepBtn={keepBtn} keepDice={keepDice} removeKeep={removeKeepBtn} player={playerTurn} endTurn={endTurn} countPlay={countPlay} selectMyScore={selectMyScore} resultDice={resultDice} nowPlayer={nowPlayer}/>
-      <Score selectScore={selectScore} selectMyScore={selectMyScore} player={2} playerTurn={playerTurn} nowPlayer={nowPlayer} resultDice={resultDice} playerScore={playerScore.second} reusltSum={reusltSum} />
+      <Score selectScore={selectScore} selectMyScore={selectMyScore} player={2} playerTurn={playerTurn} nowPlayer={nowPlayer} resultDice={resultDice} playerScore={playerScore.second} reusltSum={reusltSum}/>
     </Flex>
   )
 }

@@ -10,22 +10,39 @@ import {
   TableContainer,
   Box,
   Input,
-  Image
+  Image,
+  Text,
+  Flex
 } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 const Score = ({ selectScore, selectMyScore, player, playerTurn, nowPlayer, resultDice, playerScore, reusltSum }: any) => {
-
   const [playNumber, setPlayNumber] = useState(1);
-
+  const [scoreValue, setScoreValue] = useState<any>({
+    topValue: 0,
+    bottomValue: 0,
+    totalValue: 0,
+  });
   useEffect(() => {
     setPlayNumber(nowPlayer ? 1 : 2);
   },[nowPlayer])
+  useEffect(() => {
+    if(Object.values(playerScore.top)) {
+      const top:any = Object.values(playerScore.top).length ? Object.values(playerScore.top).reduce((a:any,b:any) => parseInt(a)+parseInt(b)) : 0;
+      const bottom:any = Object.values(playerScore.bottom).length ? Object.values(playerScore.bottom).reduce((a:any,b:any) => parseInt(a)+parseInt(b)) : 0
+      setScoreValue({
+        topValue: top,
+        bottomValue: bottom,
+        totalValue:  parseInt(top) >= 36 ? 30 + parseInt(top) + parseInt(bottom) : parseInt(top) + parseInt(bottom) ,
+      });
+    }
+  },[playerScore])
+
 
   return (
     <Box width={'lg'} h={'full'}>
       <TableContainer h={'full'}>
         <Table variant='striped'>
-          <TableCaption>0/36  YOUR SCORE +30</TableCaption>
+          <TableCaption>{scoreValue.topValue}/36  YOUR SCORE +30</TableCaption>
           <Thead>
             <Tr>
               <Th>DICE</Th>
@@ -92,6 +109,20 @@ const Score = ({ selectScore, selectMyScore, player, playerTurn, nowPlayer, resu
           </Tbody>
         </Table>
       </TableContainer>
+      <Flex m={'10'}>
+        <Text py={1.5}>
+          RESULT
+        </Text>
+        <Input
+          p={0}
+          m={0}
+          border={'none'}
+          readOnly
+          value={scoreValue.totalValue}
+          textAlign={'center'}
+          cursor={'default'}
+        />
+      </Flex>
     </Box>
   )
 }
