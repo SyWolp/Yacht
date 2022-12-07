@@ -10,6 +10,7 @@ import {
   ModalOverlay,
   Text,
   Flex,
+  Box,
 } from '@chakra-ui/react'
 
 import React, { useState } from 'react'
@@ -26,6 +27,12 @@ const HowToPlayModal = () => {
   const [overlay, setOverlay] = React.useState(<OverlayOne />)
 
   const [slideIndex, setSlideIndex] = useState(1)
+
+  const len = DATA_SLIDER.length
+
+  const moveDot = (index: React.SetStateAction<number>) => {
+    setSlideIndex(index)
+  }
 
   return (
     <>
@@ -64,15 +71,44 @@ const HowToPlayModal = () => {
           w={{ base: '100%', md: '730px', lg: '740px' }}
           h={'800px'}
         >
-          <ModalHeader>어캐하누?</ModalHeader>
+          <ModalHeader>How to play?</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Text>How To Play</Text>
-            <Button>ㅁ </Button>
-            <Button>ㅁ </Button>
+            <Box w={'100%'}>
+              {DATA_SLIDER.map(({ id, Img }) => {
+                return (
+                  <Flex
+                    key={id}
+                    display={slideIndex === id ? '' : 'none'}
+                    overflow={'hidden'}
+                    w={'100%'}
+                  >
+                    <img src={Img} alt={'슬라이더'} />
+                  </Flex>
+                )
+              })}
+              {console.log(slideIndex)}
+            </Box>
           </ModalBody>
-          <ModalFooter>
-            <Button onClick={onClose}>Close</Button>
+          <ModalFooter
+            w={'97%'}
+            top={'50%'}
+            position={'absolute'}
+            right={'20px'}
+          >
+            <Flex w={'100%'} h={'50%'} justifyContent={'space-between'}>
+              {SLIDER_BTN.map((item, index) => (
+                <Button
+                  w={'100%'}
+                  onClick={() => moveDot(item.id)}
+                  width={'45px'}
+                  float={'left'}
+                  border-radius={'100px'}
+                >
+                  <img src={item.Image} alt={'왜 안뜸'} />
+                </Button>
+              ))}
+            </Flex>
           </ModalFooter>
         </ModalContent>
       </Modal>
@@ -81,3 +117,29 @@ const HowToPlayModal = () => {
 }
 
 export default HowToPlayModal
+
+const DATA_SLIDER = [
+  {
+    id: 1,
+    Img: '/img/howtoplay1.png',
+  },
+  {
+    id: 2,
+    Img: '/img/howtoplay2.png',
+  },
+  {
+    id: 3,
+    text: '세번째 슬라이드',
+  },
+]
+
+const SLIDER_BTN = [
+  {
+    id: 1,
+    Image: '/img/arrow_left_g.png',
+  },
+  {
+    id: 2,
+    Image: '/img/arrow_right_g.png',
+  },
+]

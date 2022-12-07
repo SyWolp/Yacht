@@ -23,22 +23,22 @@ const HomePageBox = () => {
       </Text>
       <Box width={'28'} height={'0'} margin={'auto'}>
         <NextLink href={'/game'}>
-          <Link>
-            <Button
-              w={'100px'}
-              h={'50px'}
-              px={'8px'}
-              bgColor={'yellow.400'}
-              borderRadius={'13px'}
-              color={'black.100'}
-              textStyle={'btnSm'}
-              fontWeight={'extrabold'}
-              text={'Start'}
-              margin={'auto'}
-              cursor={'pointer'}
-              textDecoration={'none'}
-            />
-          </Link>
+          {/* <Link> */}
+          <Button
+            w={'100px'}
+            h={'50px'}
+            px={'8px'}
+            bgColor={'yellow.400'}
+            borderRadius={'13px'}
+            color={'black.100'}
+            textStyle={'btnSm'}
+            fontWeight={'extrabold'}
+            text={'Start'}
+            margin={'auto'}
+            cursor={'pointer'}
+            textDecoration={'none'}
+          />
+          {/* </Link> */}
         </NextLink>
       </Box>
       <Box>
