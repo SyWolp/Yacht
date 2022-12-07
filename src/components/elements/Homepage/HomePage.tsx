@@ -1,7 +1,7 @@
 import { Box, Flex, Image, Link, Text } from '@chakra-ui/react'
 import NextLink from 'next/link'
 import Button from '../../common/Button'
-import HowToPlayModal from './HowToPlayModal'
+import HowToPlayModal from '../../common/@Modal/HowToPlayModal'
 const HomePageBox = () => {
   // if(typeof window === 'undefined') return;
   return (

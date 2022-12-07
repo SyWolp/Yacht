@@ -11,8 +11,8 @@ import {
   Text,
   Flex,
 } from '@chakra-ui/react'
-import React from 'react'
-import HowToPlay from './HowToPlay'
+
+import React, { useState } from 'react'
 
 const HowToPlayModal = () => {
   const OverlayOne = () => (
@@ -22,24 +22,17 @@ const HowToPlayModal = () => {
     />
   )
 
-  const OverlayTwo = () => (
-    <ModalOverlay
-      bg="none"
-      backdropFilter="auto"
-      backdropInvert="80%"
-      backdropBlur="2px"
-    />
-  )
-
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [overlay, setOverlay] = React.useState(<OverlayOne />)
 
+  const [slideIndex, setSlideIndex] = useState(1)
+
   return (
     <>
-      <Flex height={'2xl'} flexDirection={'column'}>
+      <Flex>
         <Button
           onClick={() => {
-            setOverlay(<HowToPlay />)
+            setOverlay(<OverlayOne />)
             onOpen()
           }}
           w={'100px'}
@@ -75,6 +68,8 @@ const HowToPlayModal = () => {
           <ModalCloseButton />
           <ModalBody>
             <Text>How To Play</Text>
+            <Button>ㅁ </Button>
+            <Button>ㅁ </Button>
           </ModalBody>
           <ModalFooter>
             <Button onClick={onClose}>Close</Button>
