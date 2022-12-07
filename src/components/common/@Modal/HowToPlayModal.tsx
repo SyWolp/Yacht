@@ -87,7 +87,6 @@ const HowToPlayModal = () => {
                   </Flex>
                 )
               })}
-              {console.log(slideIndex)}
             </Box>
           </ModalBody>
           <ModalFooter
@@ -99,6 +98,7 @@ const HowToPlayModal = () => {
             <Flex w={'100%'} h={'50%'} justifyContent={'space-between'}>
               {SLIDER_BTN.map((item, index) => (
                 <Button
+                  key={index}
                   w={'100%'}
                   onClick={() => moveDot(item.id)}
                   width={'45px'}
