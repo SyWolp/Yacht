@@ -1,6 +1,7 @@
 ## Yacht
 
 Play
+
 https://main.d1qj92iy2ga89e.amplifyapp.com/
 
 How to play
