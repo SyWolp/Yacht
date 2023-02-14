@@ -118,7 +118,7 @@ const Score = ({ selectScore, selectMyScore, player, playerTurn, nowPlayer, resu
           m={0}
           border={'none'}
           readOnly
-          value={scoreValue.totalValue}
+          value={!scoreValue.totalValue ? '' : scoreValue.totalValue}
           textAlign={'center'}
           cursor={'default'}
         />
