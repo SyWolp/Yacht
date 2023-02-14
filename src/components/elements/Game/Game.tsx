@@ -1,43 +1,43 @@
-import { Box, Flex } from '@chakra-ui/react'
-import { useEffect, useState } from 'react'
-import GameBoard from '../../common/GameBoard'
-import Score from '../../common/ScoreBox'
+import { Box, Flex } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
+import GameBoard from '../../common/GameBoard';
+import Score from '../../common/ScoreBox';
 
 interface ScoreType {
   top?: {
-    one?: number | undefined
-    two?: number | undefined
-    three?: number | undefined
-    four?: number | undefined
-    five?: number | undefined
-    six?: number | undefined
-  }
+    one?: number | undefined;
+    two?: number | undefined;
+    three?: number | undefined;
+    four?: number | undefined;
+    five?: number | undefined;
+    six?: number | undefined;
+  };
   bottom?: {
-    'Four of a Kind'?: number | undefined
-    'Full House'?: number | undefined
-    'Little Straight'?: number | undefined
-    'Big Straight'?: number | undefined
-    Yacht?: number | undefined
-    Choice?: number | undefined
-  }
+    'Four of a Kind'?: number | undefined;
+    'Full House'?: number | undefined;
+    'Little Straight'?: number | undefined;
+    'Big Straight'?: number | undefined;
+    Yacht?: number | undefined;
+    Choice?: number | undefined;
+  };
 }
 
 interface playScore {
-  first?: ScoreType
-  second?: ScoreType
+  first?: ScoreType;
+  second?: ScoreType;
 }
 
 const Game = () => {
-  const [myDice, setMyDice] = useState<any[]>([0, 0, 0, 0, 0])
-  const [keepDice, setKeepDice] = useState<any[]>([])
-  const [playerTurn, setPlayTurn] = useState(false)
-  const [countPlay, setCountPlay] = useState(0)
-  const [resultDice, setResultDice] = useState<any[]>([])
-  const [reusltSum, setResultSum] = useState<ScoreType>({})
-  const [selectMyScore, setSelectMyScore] = useState(false)
-  const [nowPlayer, setNowPlayer] = useState(true)
-  const [endGame, setEndGame] = useState(0)
-  const [playerScore, setPlayerScore] = useState<playScore>({
+  const [myDice, setMyDice] = useState<any[]>([0, 0, 0, 0, 0]);
+  const [keepDice, setKeepDice] = useState<any[]>([]);
+  const [playerTurn, setPlayTurn] = useState(false);
+  const [countPlay, setCountPlay] = useState(0);
+  const [resultDice, setResultDice] = useState<any[]>([]);
+  const [reusltSum, setResultSum] = useState<ScoreType>({});
+  const [selectMyScore, setSelectMyScore] = useState(false);
+  const [nowPlayer, setNowPlayer] = useState(true);
+  const [endGame, setEndGame] = useState(0);
+  const [playerScore, setPlayerScore] = useState<any>({
     first: {
       top: {},
       bottom: {},
@@ -46,26 +46,26 @@ const Game = () => {
       top: {},
       bottom: {},
     },
-  })
+  });
 
   const playRun = () => {
     const arrLength = Array.from({ length: myDice.length }, (_, x) =>
       Math.floor(Math.random() * (7 - 1) + 1),
-    )
-    setMyDice(arrLength)
-    setCountPlay(countPlay + 1)
-  }
+    );
+    setMyDice(arrLength);
+    setCountPlay(countPlay + 1);
+  };
 
   const keepBtn = (number: any) => {
-    setKeepDice((v) => [...v, ...myDice.splice(number, 1)])
-  }
+    setKeepDice((v) => [...v, ...myDice.splice(number, 1)]);
+  };
 
   const removeKeepBtn = (number: number) => {
-    setMyDice((v) => [...v, ...keepDice.splice(number, 1)])
-  }
+    setMyDice((v) => [...v, ...keepDice.splice(number, 1)]);
+  };
 
   const selectScore = (e: any, a: any, b: any, po: string) => {
-    const order = b ? 'first' : 'second'
+    const order = b ? 'first' : 'second';
     setPlayerScore({
       ...playerScore,
       [order]: {
@@ -75,18 +75,18 @@ const Game = () => {
           [a]: e.target.value,
         },
       },
-    })
-    setPlayTurn(!playerTurn)
-    setCountPlay(0)
-    setMyDice([0, 0, 0, 0, 0])
-    setKeepDice([])
-    setResultDice([])
-    setNowPlayer(!nowPlayer)
-    setSelectMyScore(false)
-  }
+    });
+    setPlayTurn(!playerTurn);
+    setCountPlay(0);
+    setMyDice([0, 0, 0, 0, 0]);
+    setKeepDice([]);
+    setResultDice([]);
+    setNowPlayer(!nowPlayer);
+    setSelectMyScore(false);
+  };
 
   const sumDice = () => {
-    const result = [...resultDice]
+    const result = [...resultDice];
     setResultSum({
       top: {
         one: result.filter((v) => v === 1).length,
@@ -140,37 +140,37 @@ const Game = () => {
         Yacht: result.every((v) => v === result[0]) ? 50 : 0,
         Choice: result.length ? result.reduce((a, b) => a + b) : 0,
       },
-    })
-  }
+    });
+  };
 
   const endTurn = () => {
-    sumDice()
-    setPlayTurn(!playerTurn)
-    setResultDice([...myDice, ...keepDice])
-    setMyDice([0, 0, 0, 0, 0])
-    setKeepDice([0, 0, 0, 0, 0])
-    setSelectMyScore(true)
-  }
+    sumDice();
+    setPlayTurn(!playerTurn);
+    setResultDice([...myDice, ...keepDice]);
+    setMyDice([0, 0, 0, 0, 0]);
+    setKeepDice([0, 0, 0, 0, 0]);
+    setSelectMyScore(true);
+  };
 
   useEffect(() => {
     if (countPlay === 3) {
-      setResultDice([...myDice, ...keepDice])
-      setPlayTurn(!playerTurn)
-      setSelectMyScore(true)
+      setResultDice([...myDice, ...keepDice]);
+      setPlayTurn(!playerTurn);
+      setSelectMyScore(true);
     }
-  }, [countPlay])
+  }, [countPlay]);
 
   useEffect(() => {
-    sumDice()
-  }, [selectMyScore, playerTurn, countPlay])
+    sumDice();
+  }, [selectMyScore, playerTurn, countPlay]);
 
   useEffect(() => {
     if (endGame === 24) {
-      alert('게임 종료')
+      alert('게임 종료');
     } else {
-      if (playerTurn) setEndGame(endGame + 1)
+      if (playerTurn) setEndGame(endGame + 1);
     }
-  }, [playerTurn])
+  }, [playerTurn]);
 
   return (
     <Flex h={'9xl'} justifyContent={'space-around'}>
@@ -208,7 +208,7 @@ const Game = () => {
         reusltSum={reusltSum}
       />
     </Flex>
-  )
-}
+  );
+};
 
-export default Game
+export default Game;
