@@ -1,9 +1,21 @@
-import { Box, Flex, Image, Text } from "@chakra-ui/react"
-import Button from "../Button"
+import { Box, Flex, Image, Text } from '@chakra-ui/react';
+import Button from '../Button';
 
-const MainGameBoard = ({ playBtn, showDice, keepBtn, keepDice, removeKeep, player, endTurn, countPlay, selectMyScore, resultDice, nowPlayer }: any) => {
+const MainGameBoard = ({
+  playBtn,
+  showDice,
+  keepBtn,
+  keepDice,
+  removeKeep,
+  player,
+  endTurn,
+  countPlay,
+  selectMyScore,
+  resultDice,
+  nowPlayer,
+}: any) => {
   return (
-    <Box width={'xl'} bg={'green.500'}>
+    <Box width={{ sm: 'sm', md: 'md', lg: 'xl' }} bg={'green.500'}>
       <Text
         margin={'auto'}
         textAlign={'center'}
@@ -28,7 +40,7 @@ const MainGameBoard = ({ playBtn, showDice, keepBtn, keepDice, removeKeep, playe
       >
         {countPlay} / 3
       </Text>
-      {!selectMyScore ?
+      {!selectMyScore ? (
         <>
           <Flex justifyContent={'space-around'}>
             <Button
@@ -39,51 +51,92 @@ const MainGameBoard = ({ playBtn, showDice, keepBtn, keepDice, removeKeep, playe
               text="RUN"
               onClick={playBtn}
             />
-            {
-              countPlay > 0 ?
-                <Button
-                  bg={'red.400'}
-                  width={'30%'}
-                  h={'16'}
-                  borderRadius={'xl'}
-                  text="END"
-                  onClick={endTurn}
-                />
-                :
-                null
-            }
-
+            {countPlay > 0 ? (
+              <Button
+                bg={'red.400'}
+                width={'30%'}
+                h={'16'}
+                borderRadius={'xl'}
+                text="END"
+                onClick={endTurn}
+              />
+            ) : null}
           </Flex>
           <Box>
-            {
-              showDice.length && showDice.reduce((a: number, b: number) => a + b) !== 0 ?
-                <Flex my={'20'} w={'100%'} h={'24'} justifyContent={'space-around'}>
-                  {showDice.sort((a: number, b: number) => a - b).map((v: number, i: number) => {
-                    return <Image cursor={'pointer'} key={v + Math.random()} onClick={() => keepBtn(i)} w={'20'} src={`img/${v}.png`} />
+            {showDice.length &&
+            showDice.reduce((a: number, b: number) => a + b) !== 0 ? (
+              <Flex
+                my={'20'}
+                w={'100%'}
+                h={'24'}
+                justifyContent={'space-around'}
+              >
+                {showDice
+                  .sort((a: number, b: number) => a - b)
+                  .map((v: number, i: number) => {
+                    return (
+                      <Image
+                        cursor={'pointer'}
+                        key={v + Math.random()}
+                        onClick={() => keepBtn(i)}
+                        minW={'10'}
+                        minH={'10'}
+                        w={{ sm: 5, md: 10, lg: 20 }}
+                        h={{ sm: 5, md: 10, lg: 20 }}
+                        src={`img/${v}.png`}
+                      />
+                    );
                   })}
-                </Flex>
-                : <Box my={'20'} h={'24'}></Box>
-            }
-            {
-              keepDice.length && keepDice.reduce((a: number, b: number) => a + b) !== 0 ?
+              </Flex>
+            ) : (
+              <Box my={'20'} h={'24'}></Box>
+            )}
+            {keepDice.length &&
+            keepDice.reduce((a: number, b: number) => a + b) !== 0 ? (
               <Flex w={'100%'} h={'24'} justifyContent={'space-around'}>
-              {keepDice.sort((a:number,b:number) => a-b).map((v: number, i: number) => {
-                return <Image cursor={'pointer'} key={v + Math.random()} onClick={() => removeKeep(i)} w={'20'} src={`img/${v}.png`} />
-              })}
-            </Flex> : <Box h={'24'}></Box>
-            }
-
+                {keepDice
+                  .sort((a: number, b: number) => a - b)
+                  .map((v: number, i: number) => {
+                    return (
+                      <Image
+                        cursor={'pointer'}
+                        key={v + Math.random()}
+                        onClick={() => removeKeep(i)}
+                        minW={'10'}
+                        minH={'10'}
+                        w={{ sm: 5, md: 10, lg: 20 }}
+                        h={{ sm: 5, md: 10, lg: 20 }}
+                        src={`img/${v}.png`}
+                      />
+                    );
+                  })}
+              </Flex>
+            ) : (
+              <Box h={'24'}></Box>
+            )}
           </Box>
         </>
-        :
+      ) : (
         <Flex w={'100%'} h={'24'} justifyContent={'center'}>
-          {resultDice.sort((a:number,b:number) => a-b).map((v: number, i: number) => {
-            return <Image key={v + Math.random()} onClick={() => keepBtn(i)} w={'20'} src={`img/${v}.png`} />
-          })}
+          {resultDice
+            .sort((a: number, b: number) => a - b)
+            .map((v: number, i: number) => {
+              return (
+                <Image
+                  key={v + Math.random()}
+                  onClick={() => keepBtn(i)}
+                  minW={'10'}
+                  minH={'10'}
+                  w={{ sm: 5, md: 10, lg: 20 }}
+                  h={{ sm: 5, md: 10, lg: 20 }}
+                  src={`img/${v}.png`}
+                />
+              );
+            })}
         </Flex>
-      }
+      )}
     </Box>
-  )
-}
+  );
+};
 
-export default MainGameBoard
+export default MainGameBoard;
