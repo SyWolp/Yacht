@@ -58,28 +58,25 @@ const Score = ({
   }, [playerScore]);
 
   return (
-    <Box width={'sm'} h={'full'}>
-      {/* <TableContainer h={'full'}> */}
+    <Box width={'max-content'} height={'min-content'}>
       <Flex flexDir={'column'}>
-        {/* <TableCaption>{scoreValue.topValue}/63 YOUR SCORE +30</TableCaption> */}
-        <Flex w={'100%'} flexDirection={'row'} justify={'space-between'}>
-          <Text ml={5}>DICE</Text>
-          <Text mr={32} textAlign={'center'}>
-            Score
-          </Text>
-        </Flex>
-        <Flex flexDir={'column'}>
+        <Flex flexDir={'column'} border={'1px'}>
           {['one', 'two', 'three', 'four', 'five', 'six'].map((v, i) => {
             return (
               <Flex
-                border={'1px'}
+                // border={'1px'}
+                height={{ sm: '50px', md: '58px' }}
+                borderBottom={i !== 5 ? '1px' : 'none'}
+                backgroundColor={i % 2 === 0 ? 'green.200' : 'none'}
+                w={'100%'}
                 key={v + i}
-                ml={5}
+                // ml={5}
+                pl={'5'}
                 justify={'space-between'}
                 mr={12}
               >
-                <Box my={3}>
-                  <Image src={`/img/${i + 1}.png`} w={'10'} />
+                <Box my={'3'}>
+                  <Image src={`/img/${i + 1}.png`} w={10} />
                 </Box>
                 <Flex>
                   <Input
@@ -117,16 +114,28 @@ const Score = ({
               </Flex>
             );
           })}
+          <Flex align={'center'} w={'100%'} borderTop={'1px'}>
+            <Text textAlign={'center'} w={'50%'}>
+              {scoreValue.topValue}/63 YOUR SCORE +30
+            </Text>
+            <Flex align={'center'} m={5} w={'50%'}>
+              <Text w={'200px'}>TOTAL SCORE</Text>
+              <Input
+                p={0}
+                m={0}
+                border={'none'}
+                readOnly
+                value={!scoreValue.totalValue ? '' : scoreValue.totalValue}
+                textAlign={'center'}
+                cursor={'default'}
+              />
+            </Flex>
+          </Flex>
         </Flex>
       </Flex>
-      {/* <Flex>
-        <Thead>
-          <Tr>
-            <Th>BONUS</Th>
-            <Th textAlign={'center'}>Score</Th>
-          </Tr>
-        </Thead>
-        <Tbody>
+      <Flex flexDir={'column'}>
+        <Flex w={'100%'} flexDirection={'row'} justify={'space-between'}></Flex>
+        <Flex flexDir={'column'} border={'1px'}>
           {[
             'Four of a Kind',
             'Full House',
@@ -134,12 +143,26 @@ const Score = ({
             'Big Straight',
             'Yacht',
             'Choice',
-          ].map((v) => {
+          ].map((v, i) => {
             return (
-              <Tr key={v}>
-                <Td>{v}</Td>
-                <Td>
+              <Flex
+                // border={'1px'}
+                height={{ sm: '50px', md: '58px' }}
+                borderBottom={i !== 5 ? '1px' : 'none'}
+                backgroundColor={i % 2 === 0 ? 'green.200' : 'none'}
+                w={'100%'}
+                key={v + i}
+                // ml={5}
+                pl={'5'}
+                justify={'space-between'}
+                mr={12}
+              >
+                <Text fontSize={1} mt={'4'}>
+                  {v}
+                </Text>
+                <Flex>
                   <Input
+                    my={3}
                     onClick={(e) =>
                       playerTurn &&
                       playNumber === player &&
@@ -167,24 +190,11 @@ const Score = ({
                     // visibility={playNumber === player ? 'visible' : 'hidden'}
                     color={playerScore?.bottom?.[v] ? 'black' : 'red.500'}
                   />
-                </Td>
-              </Tr>
+                </Flex>
+              </Flex>
             );
           })}
-        </Tbody>
-      </Flex> */}
-      {/* </TableContainer> */}
-      <Flex m={'10'}>
-        <Text py={1.5}>RESULT</Text>
-        <Input
-          p={0}
-          m={0}
-          border={'none'}
-          readOnly
-          value={!scoreValue.totalValue ? '' : scoreValue.totalValue}
-          textAlign={'center'}
-          cursor={'default'}
-        />
+        </Flex>
       </Flex>
     </Box>
   );

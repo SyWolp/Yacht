@@ -173,7 +173,12 @@ const Game = () => {
   }, [playerTurn]);
 
   return (
-    <Flex h={'9xl'} justifyContent={'space-around'}>
+    <Flex
+      w={'100%'}
+      h={{ sm: 'container.sm', md: 'container.md' }}
+      justifyContent={{ sm: 'center', md: 'space-around' }}
+      // flexDir={{ sm: 'column', md: 'row' }}
+    >
       <Score
         selectScore={selectScore}
         selectMyScore={selectMyScore}

@@ -15,7 +15,7 @@ const MainGameBoard = ({
   nowPlayer,
 }: any) => {
   return (
-    <Box width={{ sm: 'sm', md: 'md', lg: 'xl' }} bg={'green.500'}>
+    <Box minW={'sm'} width={{ sm: 'md', md: 'md', lg: 'xl' }} bg={'green.500'}>
       <Text
         margin={'auto'}
         textAlign={'center'}
@@ -79,10 +79,10 @@ const MainGameBoard = ({
                         cursor={'pointer'}
                         key={v + Math.random()}
                         onClick={() => keepBtn(i)}
-                        minW={'10'}
-                        minH={'10'}
-                        w={{ sm: 5, md: 10, lg: 20 }}
-                        h={{ sm: 5, md: 10, lg: 20 }}
+                        maxW={'20'}
+                        maxH={'20'}
+                        w={{ sm: 5, md: 20, lg: 20 }}
+                        h={{ sm: 5, md: 20, lg: 20 }}
                         src={`img/${v}.png`}
                       />
                     );
@@ -102,10 +102,10 @@ const MainGameBoard = ({
                         cursor={'pointer'}
                         key={v + Math.random()}
                         onClick={() => removeKeep(i)}
-                        minW={'10'}
-                        minH={'10'}
-                        w={{ sm: 5, md: 10, lg: 20 }}
-                        h={{ sm: 5, md: 10, lg: 20 }}
+                        maxW={'20'}
+                        maxH={'20'}
+                        w={{ sm: 5, md: 20, lg: 20 }}
+                        h={{ sm: 5, md: 20, lg: 20 }}
                         src={`img/${v}.png`}
                       />
                     );
