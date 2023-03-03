@@ -1,7 +1,7 @@
 ## Yacht
 
 Play
-https://master.d1qj92iy2ga89e.amplifyapp.com/game
+https://master.d1qj92iy2ga89e.amplifyapp.com/
 
 
 How to play
